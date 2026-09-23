@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SINGULARITIES ATLAS — ERGOSPHERE Relativity Observatory</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,500;0,700;1,400&family=Space+Grotesk:wght@300;500;700&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="singularities.css" />
+</head>
+<body>
+
+  <!-- Custom HUD Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-follower"></div>
+
+  <!-- Technical HUD Overlay -->
+  <div class="hud-frame">
+    <div class="hud-corner top-left"><span class="hud-pulse"></span> ATLAS MODULE // MODULE-02</div>
+    <div class="hud-corner top-right">GEODESIC SOLVER: ACTIVE</div>
+    <div class="hud-corner bottom-left">KERR-SCHWARZSCHILD CATALOG</div>
+    <div class="hud-corner bottom-right">METRIC SCALE: 10⁻¹⁵m — 10¹⁴m</div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <a href="index.html" class="logo-container hover-target">
+      <img src="/Users/martinasacchetto/Desktop/ergosphere/LOGO/LOGO.png" alt="Ergosphere" class="logo-img">
+    </a>
+
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link hover-target">Home</a>
+      <a href="singularities.html" class="nav-link active hover-target">Singularities Atlas</a>
+      <a href="physics.html" class="nav-link hover-target">Relativistic Physics</a>
+      <a href="observatory.html" class="nav-link hover-target">Deep Space Observatory</a>
+      <a href="singularities.html" class="btn-hud hover-target">Launch Atlas</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO SECTION: Interactive Slingshot Geodesic Engine -->
+    <section class="slingshot-hero">
+      <div class="slingshot-container">
+        
+        <!-- Controls Overlay Panel -->
+        <div class="slingshot-controls glass-panel">
+          <div class="control-header">
+            <span class="section-tag">[ GEODESIC SLINGSHOT ENGINE ]</span>
+            <h2>ORBITAL DEFLECTION SIMULATOR</h2>
+            <p>Click & drag inside the canvas to launch test photons or relativistic matter toward the gravitational well.</p>
+          </div>
+
+          <!-- Target Presets -->
+          <div class="preset-selector">
+            <span class="ctrl-label">PRESET TARGET SINGULARITY:</span>
+            <div class="preset-buttons">
+              <button class="preset-btn active hover-target" data-mass="66000000000" data-spin="0.99" data-name="TON 618">TON 618 (66B M☉)</button>
+              <button class="preset-btn hover-target" data-mass="6500000000" data-spin="0.90" data-name="M87*">M87* (6.5B M☉)</button>
+              <button class="preset-btn hover-target" data-mass="4100000" data-spin="0.44" data-name="SGR A*">SgR A* (4.1M M☉)</button>
+              <button class="preset-btn hover-target" data-mass="21" data-spin="0.98" data-name="CYGNUS X-1">CYGNUS X-1 (21 M☉)</button>
+              <button class="preset-btn hover-target" data-mass="0.0000001" data-spin="0.10" data-name="MICRO PBH">MICRO PBH (10¹⁵ kg)</button>
+            </div>
+          </div>
+
+          <!-- Physical Tweaks -->
+          <div class="controls-grid">
+            <div class="ctrl-group">
+              <label>PARTICLE TYPE:</label>
+              <select id="particle-type" class="hover-target">
+                <option value="photon">PHOTON (c = 1.0)</option>
+                <option value="matter">RELATIVISTIC MATTER (0.85c)</option>
+                <option value="probe">PROBE BEACON (0.50c)</option>
+              </select>
+            </div>
+
+            <div class="ctrl-group">
+              <label>SPIN PARAMETER (a*): <span id="spin-val">0.99</span></label>
+              <input type="range" id="spin-range" min="0" max="0.998" step="0.01" value="0.99" class="hover-target">
+            </div>
+          </div>
+
+          <!-- Real-Time Telemetry Readout -->
+          <div class="slingshot-telemetry">
+            <div class="telemetry-box">
+              <span class="lbl">TARGET NAME:</span>
+              <span class="val" id="tele-name">TON 618</span>
+            </div>
+            <div class="telemetry-box">
+              <span class="lbl">SCHWARZSCHILD RADIUS (r_s):</span>
+              <span class="val" id="tele-rs">1,300 AU</span>
+            </div>
+            <div class="telemetry-box">
+              <span class="lbl">TRAJECTORY STATUS:</span>
+              <span class="val status-glow" id="tele-status">READY FOR LAUNCH</span>
+            </div>
+            <div class="telemetry-box">
+              <span class="lbl">PERIAPSIS RADIUS:</span>
+              <span class="val" id="tele-periapsis">--</span>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button id="clear-trajectories" class="btn-hud hover-target">CLEAR TRAJECTORIES</button>
+            <button id="fire-default-beam" class="btn-primary hover-target">FIRE BEAM ARRAY</button>
+          </div>
+        </div>
+
+        <!-- Canvas Viewport -->
+        <div class="slingshot-canvas-box">
+          <canvas id="slingshot-canvas"></canvas>
+          <div class="canvas-instruction">
+            <span>[ AIM WITH CURSOR & CLICK TO LAUNCH GEODESIC PROBE ]</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: INTERACTIVE ANATOMY BREAKOUT -->
+    <section class="anatomy-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">[ METRIC STRUCTURE ]</span>
+          <h2>ANATOMY OF A KERR SINGULARITY</h2>
+          <p>Hover over or select different topological layers of a rotating spacetime anomaly.</p>
+        </div>
+
+        <div class="anatomy-layout">
+          <!-- Interactive Visual Diagram Nodes -->
+          <div class="anatomy-visual glass-panel">
+            <div class="anatomy-node node-singularity hover-target" data-layer="singularity">
+              <span class="node-dot"></span>
+              <span class="node-label">RING SINGULARITY</span>
+            </div>
+            <div class="anatomy-node node-inner-horizon hover-target" data-layer="inner-horizon">
+              <span class="node-dot"></span>
+              <span class="node-label">INNER HORIZON (CAUCHY)</span>
+            </div>
+            <div class="anatomy-node node-outer-horizon hover-target" data-layer="outer-horizon">
+              <span class="node-dot"></span>
+              <span class="node-label">EVENT HORIZON (r_H)</span>
+            </div>
+            <div class="anatomy-node node-ergosphere hover-target" data-layer="ergosphere">
+              <span class="node-dot"></span>
+              <span class="node-label">ERGOSPHERE BOUNDARY</span>
+            </div>
+            <div class="anatomy-node node-photon-ring hover-target" data-layer="photon-sphere">
+              <span class="node-dot"></span>
+              <span class="node-label">PHOTON SPHERE (1.5 - 3.0 r_s)</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Info Card -->
+          <div class="anatomy-info glass-panel" id="anatomy-info-card">
+            <span class="anatomy-code" id="layer-code">LAYER: 01 // CORE</span>
+            <h3 id="layer-title">RING SINGULARITY</h3>
+            <p id="layer-desc">In a Kerr rotating black hole, the gravitational singularity collapses into a zero-thickness ring rather than a point. Matter passing through the ring could theoretically enter negative-radius spacetime or Cauchy horizon causality loops.</p>
+            
+            <div class="layer-metrics">
+              <div class="metric-item">
+                <span class="m-lbl">DIMENSION:</span>
+                <span class="m-val" id="layer-dim">1D Ring (r = a)</span>
+              </div>
+              <div class="metric-item">
+                <span class="m-lbl">DENSITY:</span>
+                <span class="m-val" id="layer-density">Infinite (ρ &rarr; &infty;)</span>
+              </div>
+              <div class="metric-item">
+                <span class="m-lbl">TIDAL FORCE:</span>
+                <span class="m-val" id="layer-force">Infinite Spaghettification</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: HAWKING RADIATION & QUANTUM EVAPORATION LAB -->
+    <section class="hawking-section">
+      <div class="container">
+        <div class="hawking-card glass-panel">
+          
+          <div class="hawking-header">
+            <div>
+              <span class="section-tag">[ QUANTUM MECHANICS ]</span>
+              <h2>HAWKING EVAPORATION & TEMPERATURE LAB</h2>
+            </div>
+            <div class="equation-tag">
+              <code>T_H = (&hbar; c³) / (8 &pi; G M k_B)</code>
+            </div>
+          </div>
+
+          <div class="hawking-grid">
+            <!-- Quantum Particle Creation Canvas -->
+            <div class="quantum-canvas-box">
+              <canvas id="quantum-canvas"></canvas>
+              <span class="canvas-tag">VIRTUAL PAIR CREATION AT EVENT HORIZON (e⁺ e⁻ / &gamma;)</span>
+            </div>
+
+            <!-- Calculator & Slider Interface -->
+            <div class="hawking-controls">
+              <div class="mass-slider-block">
+                <div class="slider-header">
+                  <span>BLACK HOLE MASS (LOGARITHMIC SCALE):</span>
+                  <span id="hawking-mass-display" class="highlight">1.00 M☉ (Solar Mass)</span>
+                </div>
+                <input type="range" id="hawking-mass-slider" min="-15" max="11" step="0.1" value="0" class="hover-target">
+              </div>
+
+              <!-- Computed Real-Time Metrics -->
+              <div class="hawking-metrics-grid">
+                <div class="h-metric">
+                  <span class="h-lbl">HAWKING TEMPERATURE:</span>
+                  <span class="h-val" id="h-temp">6.17 &times; 10⁻⁸ K</span>
+                  <span class="h-sub">Colder than cosmic background</span>
+                </div>
+                <div class="h-metric">
+                  <span class="h-lbl">EVAPORATION TIME:</span>
+                  <span class="h-val" id="h-life">2.09 &times; 10⁶⁷ Years</span>
+                  <span class="h-sub">Far exceeds Universe age</span>
+                </div>
+                <div class="h-metric">
+                  <span class="h-lbl">RADIATED POWER:</span>
+                  <span class="h-val" id="h-power">9.00 &times; 10⁻²⁹ Watts</span>
+                  <span class="h-sub">Quantum static emission</span>
+                </div>
+                <div class="h-metric">
+                  <span class="h-lbl">HORIZON AREA:</span>
+                  <span class="h-val" id="h-area">1.10 &times; 10⁸ km²</span>
+                  <span class="h-sub">Bekenstein-Hawking Entropy</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: DEEP SPACE SINGULARITIES CATALOG -->
+    <section class="catalog-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">[ DEEP CATALOG ]</span>
+          <h2>THE SINGULARITY ATLAS</h2>
+          <p>Filter through confirmed and theoretical relativistic singularities in our observable cosmos.</p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="catalog-filters">
+          <button class="cat-filter active hover-target" data-filter="all">ALL CLASSES</button>
+          <button class="cat-filter hover-target" data-filter="supermassive">SUPERMASSIVE (SMBH)</button>
+          <button class="cat-filter hover-target" data-filter="stellar">STELLAR MASS</button>
+          <button class="cat-filter hover-target" data-filter="primordial">PRIMORDIAL / MICRO</button>
+        </div>
+
+        <!-- Catalog Grid Cards -->
+        <div class="catalog-grid">
+          
+          <!-- Card 1 -->
+          <div class="cat-card glass-panel" data-category="supermassive">
+            <div class="card-badge">SUPERMASSIVE</div>
+            <div class="card-header">
+              <h3>TON 618</h3>
+              <span class="constellation">Canes Venatici</span>
+            </div>
+            <p class="card-desc">Hyper-luminous quasar housing one of the most massive black holes ever detected in the universe.</p>
+            <div class="card-specs">
+              <div class="spec"><span class="s-lbl">MASS:</span><span class="s-val">66 Billion M☉</span></div>
+              <div class="spec"><span class="s-lbl">DISTANCE:</span><span class="s-val">18.2 Gly</span></div>
+              <div class="spec"><span class="s-lbl">RADIUS (r_s):</span><span class="s-val">1,300 AU</span></div>
+              <div class="spec"><span class="s-lbl">SPIN (a*):</span><span class="s-val">~ 0.99</span></div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="cat-card glass-panel" data-category="supermassive">
+            <div class="card-badge">SUPERMASSIVE</div>
+            <div class="card-header">
+              <h3>M87*</h3>
+              <span class="constellation">Virgo Cluster</span>
+            </div>
+            <p class="card-desc">The first black hole ever directly imaged by the Event Horizon Telescope array in 2019.</p>
+            <div class="card-specs">
+              <div class="spec"><span class="s-lbl">MASS:</span><span class="s-val">6.5 Billion M☉</span></div>
+              <div class="spec"><span class="s-lbl">DISTANCE:</span><span class="s-val">53.5 Mly</span></div>
+              <div class="spec"><span class="s-lbl">RADIUS (r_s):</span><span class="s-val">128 AU</span></div>
+              <div class="spec"><span class="s-lbl">SPIN (a*):</span><span class="s-val">0.90 ± 0.05</span></div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="cat-card glass-panel" data-category="supermassive">
+            <div class="card-badge">SUPERMASSIVE</div>
+            <div class="card-header">
+              <h3>Sagittarius A*</h3>
+              <span class="constellation">Galactic Center</span>
+            </div>
+            <p class="card-desc">The supermassive gravitational anchor residing at the dynamical center of the Milky Way galaxy.</p>
+            <div class="card-specs">
+              <div class="spec"><span class="s-lbl">MASS:</span><span class="s-val">4.1 Million M☉</span></div>
+              <div class="spec"><span class="s-lbl">DISTANCE:</span><span class="s-val">26,000 ly</span></div>
+              <div class="spec"><span class="s-lbl">RADIUS (r_s):</span><span class="s-val">12 Million km</span></div>
+              <div class="spec"><span class="s-lbl">SPIN (a*):</span><span class="s-val">0.44 ± 0.1</span></div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="cat-card glass-panel" data-category="stellar">
+            <div class="card-badge">STELLAR MASS</div>
+            <div class="card-header">
+              <h3>Cygnus X-1</h3>
+              <span class="constellation">Cygnus</span>
+            </div>
+            <p class="card-desc">A famous galactic X-ray binary source, and the first widely accepted stellar mass black hole candidate.</p>
+            <div class="card-specs">
+              <div class="spec"><span class="s-lbl">MASS:</span><span class="s-val">21.2 M☉</span></div>
+              <div class="spec"><span class="s-lbl">DISTANCE:</span><span class="s-val">7,200 ly</span></div>
+              <div class="spec"><span class="s-lbl">RADIUS (r_s):</span><span class="s-val">63 km</span></div>
+              <div class="spec"><span class="s-lbl">SPIN (a*):</span><span class="s-val">&gt; 0.98</span></div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="cat-card glass-panel" data-category="stellar">
+            <div class="card-badge">STELLAR MASS</div>
+            <div class="card-header">
+              <h3>GW190521</h3>
+              <span class="constellation">Deep Field</span>
+            </div>
+            <p class="card-desc">Intermediate remnant born from a LIGO/Virgo gravitational wave merger event inside the upper mass gap.</p>
+            <div class="card-specs">
+              <div class="spec"><span class="s-lbl">MASS:</span><span class="s-val">142 M☉</span></div>
+              <div class="spec"><span class="s-lbl">DISTANCE:</span><span class="s-val">17 Gly</span></div>
+              <div class="spec"><span class="s-lbl">RADIUS (r_s):</span><span class="s-val">420 km</span></div>
+              <div class="spec"><span class="s-lbl">SPIN (a*):</span><span class="s-val">0.72</span></div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="cat-card glass-panel" data-category="primordial">
+            <div class="card-badge">PRIMORDIAL</div>
+            <div class="card-header">
+              <h3>PBH-ALPHA (Theoretical)</h3>
+              <span class="constellation">Hypothetical</span>
+            </div>
+            <p class="card-desc">Hypothetical sub-atomic primordial black hole formed during high-density fluctuations in the early Big Bang.</p>
+            <div class="card-specs">
+              <div class="spec"><span class="s-lbl">MASS:</span><span class="s-val">10¹⁵ kg (Asteroid)</span></div>
+              <div class="spec"><span class="s-lbl">DISTANCE:</span><span class="s-val">Unknown</span></div>
+              <div class="spec"><span class="s-lbl">RADIUS (r_s):</span><span class="s-val">1.5 &times; 10⁻¹⁵ m</span></div>
+              <div class="spec"><span class="s-lbl">SPIN (a*):</span><span class="s-val">Near 0</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <!-- REGOLA LOGO REQUISITO ESATTO -->
+        <a href="index.html" class="logo-container hover-target">
+          <img src="/Users/martinasacchetto/Desktop/ergosphere/LOGO/LOGO.png" alt="Ergosphere" class="logo-img">
+        </a>
+        <p>Advanced Relativistic Astrophysics Observatory & Deep Space Spacetime Atlas.</p>
+      </div>
+
+      <div class="footer-links">
+        <div class="link-col">
+          <h4>NAVIGATION</h4>
+          <a href="index.html">Home</a>
+          <a href="singularities.html">Singularities Atlas</a>
+          <a href="physics.html">Relativistic Physics</a>
+          <a href="observatory.html">Observatory</a>
+        </div>
+        <div class="link-col">
+          <h4>METRICS</h4>
+          <a href="singularities.html">Kerr Geodesics</a>
+          <a href="singularities.html">Hawking Radiation</a>
+          <a href="singularities.html">Mass Gap Catalog</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© 2026 ERGOSPHERE RESEARCH GROUP. ALL RIGHTS RESERVED.</p>
+      <p>SPACETIME ATLAS MATRIX // VERSION 3.0</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="singularities.js"></script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RELATIVISTIC PHYSICS — ERGOSPHERE Observatory</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,500;0,700;1,400&family=Space+Grotesk:wght@300;500;700&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="physics.css" />
+</head>
+<body>
+
+  <!-- Custom HUD Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-follower"></div>
+
+  <!-- Technical HUD Frame -->
+  <div class="hud-frame">
+    <div class="hud-corner top-left"><span class="hud-pulse"></span> PHYSICS LABORATORY // MODULE-03</div>
+    <div class="hud-corner top-right">EINSTEIN FIELD SOLVER: ONLINE</div>
+    <div class="hud-corner bottom-left">LORENTZ & GRAVITATIONAL METRICS</div>
+    <div class="hud-corner bottom-right">FRAME LAGRANGE: 0.000s</div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <a href="index.html" class="logo-container hover-target">
+      <img src="/Users/martinasacchetto/Desktop/ergosphere/LOGO/LOGO.png" alt="Ergosphere" class="logo-img">
+    </a>
+
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link hover-target">Home</a>
+      <a href="singularities.html" class="nav-link hover-target">Singularities Atlas</a>
+      <a href="physics.html" class="nav-link active hover-target">Relativistic Physics</a>
+      <a href="observatory.html" class="nav-link hover-target">Deep Space Observatory</a>
+      <a href="physics.html" class="btn-hud hover-target">Launch Simulators</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO SECTION: Interactive 3D Spacetime Grid & Lensing Engine -->
+    <section class="physics-hero">
+      <div class="physics-hero-container">
+        
+        <!-- Controls Side Panel -->
+        <div class="sim-controls glass-panel">
+          <div class="control-header">
+            <span class="section-tag">[ GENERAL RELATIVITY ]</span>
+            <h2>SPACETIME CURVATURE & LENSING SIMULATOR</h2>
+            <p>Select celestial mass sources to deform the 3D metric grid and observe real-time photon deflection around the gravitational well.</p>
+          </div>
+
+          <!-- Mass Source Selector -->
+          <div class="mass-source-selector">
+            <span class="ctrl-label">CELESTIAL MASS SOURCE:</span>
+            <div class="source-buttons">
+              <button class="source-btn active hover-target" data-mass="1" data-radius="20" data-type="sun">THE SUN (1 M☉)</button>
+              <button class="source-btn hover-target" data-mass="15" data-radius="15" data-type="white-dwarf">WHITE DWARF (1.4 M☉)</button>
+              <button class="source-btn hover-target" data-mass="40" data-radius="10" data-type="neutron">NEUTRON STAR (2.1 M☉)</button>
+              <button class="source-btn hover-target" data-mass="100" data-radius="5" data-type="black-hole">KERR BLACK HOLE (10 M☉)</button>
+              <button class="source-btn hover-target" data-mass="180" data-radius="2" data-type="wormhole">EINSTEIN-ROSEN BRIDGE</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Grid Sliders -->
+          <div class="controls-grid">
+            <div class="ctrl-group">
+              <label>WELL DEPTH MULTIPLIER: <span id="depth-val">1.0x</span></label>
+              <input type="range" id="depth-range" min="0.2" max="3.0" step="0.1" value="1.0" class="hover-target">
+            </div>
+
+            <div class="ctrl-group">
+              <label>BACKGROUND LIGHT RAYS: <span id="rays-val">24</span></label>
+              <input type="range" id="rays-range" min="8" max="48" step="4" value="24" class="hover-target">
+            </div>
+          </div>
+
+          <!-- Telemetry Realtime Readout -->
+          <div class="physics-telemetry">
+            <div class="telemetry-box">
+              <span class="lbl">LIGHT DEFLECTION ANGLE (&theta;):</span>
+              <span class="val" id="tele-angle">1.75 arcsec</span>
+            </div>
+            <div class="telemetry-box">
+              <span class="lbl">GRAVITATIONAL TIME DILATION (dt/d&tau;):</span>
+              <span class="val" id="tele-time-dilation">1.000002</span>
+            </div>
+            <div class="telemetry-box">
+              <span class="lbl">EINSTEIN RING RADIUS (r_E):</span>
+              <span class="val" id="tele-ring">0.82 AU</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Canvas Viewport -->
+        <div class="spacetime-canvas-box">
+          <canvas id="spacetime-canvas"></canvas>
+          <div class="canvas-overlay-hud">
+            <span>[ ROTATE MESH: CLICK & DRAG // HOVER TO PROBE METRIC DISTORTION ]</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: LORENTZ ACCELERATOR (SPECIAL RELATIVITY) -->
+    <section class="lorentz-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">[ SPECIAL RELATIVITY ]</span>
+          <h2>LORENTZ TRANSFORMATION ACCELERATOR</h2>
+          <p>Accelerate a relativistic probe toward light speed (c) to witness physical length contraction, time dilation, and optical Doppler shift.</p>
+        </div>
+
+        <div class="lorentz-layout glass-panel">
+          <!-- Accelerator Canvas -->
+          <div class="lorentz-canvas-box">
+            <canvas id="lorentz-canvas"></canvas>
+            <div class="speed-indicator">
+              <span>VELOCITY: <strong id="speed-display">0.850 c</strong></span>
+            </div>
+          </div>
+
+          <!-- Lorentz Interactive Controls -->
+          <div class="lorentz-controls">
+            <div class="speed-slider-block">
+              <div class="slider-header">
+                <span>PROBE VELOCITY FACTOR (v / c):</span>
+                <span id="beta-val" class="highlight">0.850 c</span>
+              </div>
+              <input type="range" id="speed-slider" min="0" max="0.999" step="0.001" value="0.850" class="hover-target">
+            </div>
+
+            <!-- Lorentz Real-Time Metrics Grid -->
+            <div class="lorentz-metrics-grid">
+              <div class="l-metric">
+                <span class="l-lbl">LORENTZ FACTOR (&gamma;):</span>
+                <span class="l-val" id="lorentz-gamma">1.898</span>
+                <span class="l-sub">&gamma; = 1 / &radic;(1 - v&sup2;/c&sup2;)</span>
+              </div>
+              <div class="l-metric">
+                <span class="l-lbl">LENGTH CONTRACTION:</span>
+                <span class="l-val" id="lorentz-length">52.7 %</span>
+                <span class="l-sub">L = L₀ / &gamma;</span>
+              </div>
+              <div class="l-metric">
+                <span class="l-lbl">PROBE CLOCK TICK RATE:</span>
+                <span class="l-val" id="lorentz-clock">0.527s / sec</span>
+                <span class="l-sub">t' = t / &gamma;</span>
+              </div>
+              <div class="l-metric">
+                <span class="l-lbl">DOPPLER SHIFT FACTOR:</span>
+                <span class="l-val" id="lorentz-doppler">3.51x (Blue)</span>
+                <span class="l-sub">Relativistic Shift</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: GRAVITATIONAL REDSHIFT & TIME DILATION LAB -->
+    <section class="redshift-section">
+      <div class="container">
+        <div class="redshift-card glass-panel">
+          
+          <div class="redshift-header">
+            <div>
+              <span class="section-tag">[ METRIC TIME DILATION ]</span>
+              <h2>GRAVITATIONAL REDSHIFT & WAVELENGTH EXPANSION</h2>
+            </div>
+            <div class="equation-tag">
+              <code>1 + z = (1 - 2GM / rc²)⁻¹ᐟ²</code>
+            </div>
+          </div>
+
+          <div class="redshift-grid">
+            <!-- Photon Wavelength Wave Canvas -->
+            <div class="wave-canvas-box">
+              <canvas id="wave-canvas"></canvas>
+              <span class="canvas-tag">EMITTED PHOTON WAVELENGTH (BLUE AT SURFACE → RED AT INFINITY)</span>
+            </div>
+
+            <!-- Redshift Radius Controls -->
+            <div class="redshift-controls">
+              <div class="radius-slider-block">
+                <div class="slider-header">
+                  <span>EMISSION DISTANCE FROM COMPACT OBJECT (r / r_s):</span>
+                  <span id="radius-display" class="highlight">1.50 r_s</span>
+                </div>
+                <input type="range" id="redshift-radius-slider" min="1.01" max="10.0" step="0.05" value="1.50" class="hover-target">
+              </div>
+
+              <div class="redshift-metrics-grid">
+                <div class="r-metric">
+                  <span class="r-lbl">REDSHIFT FACTOR (z):</span>
+                  <span class="r-val" id="r-z-factor">0.732</span>
+                  <span class="r-sub">Extreme Spectral Shift</span>
+                </div>
+                <div class="r-metric">
+                  <span class="r-lbl">PHOTON FREQUENCY LOSS:</span>
+                  <span class="r-val" id="r-freq-loss">-42.3 %</span>
+                  <span class="r-sub">Energy Escaping Gravity Well</span>
+                </div>
+                <div class="r-metric">
+                  <span class="r-lbl">TIME DILATION RATIO:</span>
+                  <span class="r-val" id="r-time-ratio">1.732x</span>
+                  <span class="r-sub">Stationary vs Infinite Observer</span>
+                </div>
+                <div class="r-metric">
+                  <span class="r-lbl">SURFACE ESCAPE VELOCITY:</span>
+                  <span class="r-val" id="r-escape-v">0.816 c</span>
+                  <span class="r-sub">Near-Light Escape Velocity</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: EINSTEIN FIELD EQUATIONS TENSOR MATRIX -->
+    <section class="tensors-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">[ METRIC TENSORS ]</span>
+          <h2>EINSTEIN FIELD EQUATION MATRIX</h2>
+          <p>Click on any mathematical component of the field equations to inspect its tensorial structure.</p>
+        </div>
+
+        <!-- Interactive Equation Matrix -->
+        <div class="equation-matrix glass-panel">
+          <div class="equation-interactive-row">
+            <div class="tensor-block active hover-target" data-tensor="ricci-tensor">
+              <span class="tensor-sym">R<sub>&mu;&nu;</sub></span>
+              <span class="tensor-lbl">RICCI TENSOR</span>
+            </div>
+            <span class="eq-op">-</span>
+            <div class="tensor-block hover-target" data-tensor="ricci-scalar">
+              <span class="tensor-sym">&frac12; R g<sub>&mu;&nu;</sub></span>
+              <span class="tensor-lbl">SCALAR CURVATURE</span>
+            </div>
+            <span class="eq-op">+</span>
+            <div class="tensor-block hover-target" data-tensor="lambda">
+              <span class="tensor-sym">&Lambda; g<sub>&mu;&nu;</sub></span>
+              <span class="tensor-lbl">COSMOLOGICAL CONSTANT</span>
+            </div>
+            <span class="eq-op">=</span>
+            <div class="tensor-block hover-target" data-tensor="coupling">
+              <span class="tensor-sym">&kappa;</span>
+              <span class="tensor-lbl">COUPLING (8&pi;G/c⁴)</span>
+            </div>
+            <div class="tensor-block hover-target" data-tensor="stress-energy">
+              <span class="tensor-sym">T<sub>&mu;&nu;</sub></span>
+              <span class="tensor-lbl">STRESS-ENERGY TENSOR</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Detail Box -->
+          <div class="tensor-detail-box" id="tensor-detail-card">
+            <span class="tensor-code" id="tensor-code">COMPONENT: 01 // SPACETIME CURVATURE</span>
+            <h3 id="tensor-title">RICCI CURVATURE TENSOR (R<sub>&mu;&nu;</sub>)</h3>
+            <p id="tensor-desc">Represents the degree to which the geometry of Riemannian spacetime deviates from flat Euclidean space. It describes the tidal forces exerted by gravity on volume elements of matter.</p>
+            
+            <div class="tensor-specs">
+              <div class="t-spec"><span class="lbl">DIMENSION:</span><span class="val" id="tensor-dim">4x4 Symmetric Matrix (10 Independent Components)</span></div>
+              <div class="t-spec"><span class="lbl">PHYSICAL INTERPRETATION:</span><span class="val" id="tensor-phys">Volume Change of Geodesic Ball</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <!-- LOGO REQUISITO ESATTO -->
+        <a href="index.html" class="logo-container hover-target">
+          <img src="/Users/martinasacchetto/Desktop/ergosphere/LOGO/LOGO.png" alt="Ergosphere" class="logo-img">
+        </a>
+        <p>Advanced Relativistic Astrophysics Observatory & Theoretical Physics Platform.</p>
+      </div>
+
+      <div class="footer-links">
+        <div class="link-col">
+          <h4>NAVIGATION</h4>
+          <a href="index.html">Home</a>
+          <a href="singularities.html">Singularities Atlas</a>
+          <a href="physics.html">Relativistic Physics</a>
+          <a href="observatory.html">Observatory</a>
+        </div>
+        <div class="link-col">
+          <h4>PHYSICS MODULES</h4>
+          <a href="physics.html">Spacetime Curvature</a>
+          <a href="physics.html">Lorentz Transformation</a>
+          <a href="physics.html">Einstein Field Tensors</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© 2026 ERGOSPHERE RESEARCH GROUP. ALL RIGHTS RESERVED.</p>
+      <p>RELATIVITY ENGINE // VERSION 3.0</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="physics.js"></script>
+</body>
+</html>

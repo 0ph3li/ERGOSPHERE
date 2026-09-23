@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ERGOSPHERE — Relativistic Astrophysics & Spacetime Dynamics</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,500;0,700;1,400&family=Space+Grotesk:wght@300;500;700&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet">
+  
+  <!-- GSAP Core -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Custom HUD Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-follower"></div>
+
+  <!-- Technical HUD Frame Overlay -->
+  <div class="hud-frame">
+    <div class="hud-corner top-left">
+      <span class="hud-pulse"></span> ERGOSPHERE CORE // STATION-01
+    </div>
+    <div class="hud-corner top-right">
+      <span>GRID MATRIX: ONLINE</span>
+    </div>
+    <div class="hud-corner bottom-left">KERR SPACETIME WARP FIELD</div>
+    <div class="hud-corner bottom-right">FREQ: 1420.405 MHz (HI LINE)</div>
+  </div>
+
+  <!-- Site Header / Navigazione VERA tra pagine -->
+  <header class="site-header">
+    <a href="index.html" class="logo-container hover-target">
+      <img src="/Users/martinasacchetto/Desktop/ergosphere/LOGO/LOGO.png" alt="Ergosphere" class="logo-img">
+    </a>
+    
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link active hover-target">Home</a>
+      <a href="singularities.html" class="nav-link hover-target">Singularities Atlas</a>
+      <a href="physics.html" class="nav-link hover-target">Relativistic Physics</a>
+      <a href="observatory.html" class="nav-link hover-target">Deep Space Observatory</a>
+      <a href="singularities.html" class="btn-hud hover-target">Launch Atlas</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO SECTION: Interactive Gravitational Well Grid (Ref Img 1) -->
+    <section class="hero-section">
+      <div class="hero-grid-container">
+        <canvas id="spacetime-grid-canvas"></canvas>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span>RELATIVISTIC METRIC OBSERVATORY</span>
+        </div>
+
+        <h1 class="hero-title">
+          SPACETIME<br>
+          <span class="glow-text">CURVATURE</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          An interactive laboratory dedicated to Kerr rotating black holes, gravitational warping, frame-dragging, and deep space telemetry.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="singularities.html" class="btn-primary hover-target">
+            <span>EXPLORE SINGULARITIES</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="physics.html" class="btn-secondary hover-target">
+            <span>PHYSICS METRICS</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- RADIO COSMIC FREQUENCY STATION (Sintetizzatore Audio Spaziale) -->
+    <section class="radio-section">
+      <div class="container">
+        <div class="radio-card glass-panel">
+          
+          <div class="radio-header">
+            <div class="radio-title-block">
+              <span class="section-tag">[ AUDIO TUNER ]</span>
+              <h2>COSMIC FREQUENCY RADIO</h2>
+              <p>Synthesize live audio emissions and radio noise captured around singularity event horizons.</p>
+            </div>
+            <div class="radio-status-display">
+              <span class="signal-indicator" id="radio-indicator"></span>
+              <span id="radio-status-text">SIGNAL: STANDBY</span>
+            </div>
+          </div>
+
+          <div class="radio-workspace">
+            <!-- Preset Channels -->
+            <div class="radio-channels">
+              <span class="channel-label">FREQUENCY PRESETS:</span>
+              <div class="channel-buttons">
+                <button class="channel-btn active hover-target" data-freq="45" data-type="kerr">KERR HORIZON HUM (45Hz)</button>
+                <button class="channel-btn hover-target" data-freq="120" data-type="pulsar">PULSAR PSR-037 (120Hz)</button>
+                <button class="channel-btn hover-target" data-freq="432" data-type="static">HAWKING QUANTUM STATIC</button>
+              </div>
+            </div>
+
+            <!-- Visualizer & Tuner Controls -->
+            <div class="radio-controls-grid">
+              <div class="visualizer-box">
+                <canvas id="radio-visualizer"></canvas>
+              </div>
+
+              <div class="tuner-box">
+                <div class="tuner-slider-group">
+                  <div class="tuner-info">
+                    <span>CARRIER FREQUENCY:</span>
+                    <span class="freq-value" id="freq-display">1420 MHz</span>
+                  </div>
+                  <input type="range" id="frequency-tuner" min="100" max="2500" value="1420" class="hover-target">
+                </div>
+
+                <div class="tuner-actions">
+                  <button id="radio-play-btn" class="btn-radio-toggle hover-target">
+                    <span id="play-btn-text">INITIALIZE AUDIO STREAM</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TELEMETRY & DATA CARDS DASHBOARD (Ref Img 5) -->
+    <section class="dashboard-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">[ METRIC TELEMETRY ]</span>
+          <h2>SINGULARITY LABORATORY DASHBOARD</h2>
+        </div>
+
+        <!-- Interactive Tabs -->
+        <div class="dashboard-tabs">
+          <button class="dash-tab active hover-target" data-tab="kerr">KERR METRIC DYNAMICS</button>
+          <button class="dash-tab hover-target" data-tab="ergosphere">ERGOSPHERE LIMITS</button>
+          <button class="dash-tab hover-target" data-tab="lensing">GRAVITATIONAL LENSING</button>
+        </div>
+
+        <!-- Dynamic Glassmorphic Panel Content -->
+        <div class="dashboard-content glass-panel">
+          
+          <!-- Tab 1: Kerr Dynamics -->
+          <div class="tab-pane active" id="pane-kerr">
+            <div class="dash-grid">
+              <div class="dash-info-col">
+                <h3>ROTATIONAL FRAME DRAGGING</h3>
+                <p>As a black hole spins with angular momentum <em>a*</em>, it drags space and time around itself. Objects inside cannot remain stationary relative to distant stars.</p>
+                
+                <div class="stats-row">
+                  <div class="stat-box">
+                    <span class="stat-num">0.998 c</span>
+                    <span class="stat-lbl">MAX SPIN LIMIT</span>
+                  </div>
+                  <div class="stat-box">
+                    <span class="stat-num">20.7%</span>
+                    <span class="stat-lbl">ENERGY EFFICIENCY</span>
+                  </div>
+                </div>
+
+                <a href="physics.html" class="dash-link hover-target">Read Full Field Equations &rarr;</a>
+              </div>
+
+              <div class="dash-metric-card">
+                <div class="metric-line"><span>Metric Tensor:</span> <code>g_μν (Kerr Geometry)</code></div>
+                <div class="metric-line"><span>Static Limit:</span> <code>r_E = M + √(M² - a²cos²θ)</code></div>
+                <div class="metric-line"><span>Event Horizon:</span> <code>r_H = M + √(M² - a²)</code></div>
+                <div class="metric-line"><span>Ergosphere Area:</span> <code>Δr = r_E - r_H</code></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Ergosphere Limits -->
+          <div class="tab-pane" id="pane-ergosphere">
+            <div class="dash-grid">
+              <div class="dash-info-col">
+                <h3>THE PENROSE ENERGY ZONE</h3>
+                <p>The ergosphere is the region situated between the outer static limit and the inner event horizon. Matter entering this zone can split, allowing escape with excess energy extracted from the hole's rotation.</p>
+                <div class="stats-row">
+                  <div class="stat-box">
+                    <span class="stat-num">+1.24 EeV</span>
+                    <span class="stat-lbl">MAX ENERGY GAIN</span>
+                  </div>
+                  <div class="stat-box">
+                    <span class="stat-num">OBLATE</span>
+                    <span class="stat-lbl">GEOMETRY SHAPE</span>
+                  </div>
+                </div>
+                <a href="physics.html" class="dash-link hover-target">Penrose Mechanics Overview &rarr;</a>
+              </div>
+
+              <div class="dash-metric-card">
+                <div class="metric-line"><span>Particle Injection:</span> <code>E_0 = E_1 + E_2</code></div>
+                <div class="metric-line"><span>Negative Energy Trajectory:</span> <code>E_2 &lt; 0 (Captured)</code></div>
+                <div class="metric-line"><span>Escaping Fragment:</span> <code>E_1 &gt; E_0 (Extracted)</code></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Gravitational Lensing -->
+          <div class="tab-pane" id="pane-lensing">
+            <div class="dash-grid">
+              <div class="dash-info-col">
+                <h3>PHOTON RING & ACCRETION SHADOW</h3>
+                <p>Light passing close to a singularity is bent sharply into photon rings, casting a shadow twice the size of the physical event horizon.</p>
+                <div class="stats-row">
+                  <div class="stat-box">
+                    <span class="stat-num">2.6 M</span>
+                    <span class="stat-lbl">PHOTON SPHERE RADIUS</span>
+                  </div>
+                  <div class="stat-box">
+                    <span class="stat-num">5.2 M</span>
+                    <span class="stat-lbl">SHADOW DIAMETER</span>
+                  </div>
+                </div>
+                <a href="observatory.html" class="dash-link hover-target">Open Telescope Imagery &rarr;</a>
+              </div>
+
+              <div class="dash-metric-card">
+                <div class="metric-line"><span>Deflection Angle:</span> <code>α = 4GM / (c² b)</code></div>
+                <div class="metric-line"><span>Einstein Ring Radius:</span> <code>θ_E = √(4GM D_LS / (c² D_L D_S))</code></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVIGATION CARDS TO OTHER PAGES -->
+    <section class="modules-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">[ EXPLORE HUB ]</span>
+          <h2>ASTROPHYSICS RESEARCH SECTIONS</h2>
+        </div>
+
+        <div class="modules-grid">
+          
+          <a href="singularities.html" class="module-card glass-panel hover-target">
+            <div class="card-num">01</div>
+            <h3>SINGULARITIES ATLAS</h3>
+            <p>Explore TON 618, Sagittarius A*, Cygnus X-1, and micro primordial black holes with live technical metrics.</p>
+            <span class="card-btn">Open Atlas Page &rarr;</span>
+          </a>
+
+          <a href="physics.html" class="module-card glass-panel hover-target">
+            <div class="card-num">02</div>
+            <h3>RELATIVISTIC PHYSICS</h3>
+            <p>Deep dive into Kerr metric equations, tensor dynamics, geodesic trajectories, and spacetime warp physics.</p>
+            <span class="card-btn">Open Physics Page &rarr;</span>
+          </a>
+
+          <a href="observatory.html" class="module-card glass-panel hover-target">
+            <div class="card-num">03</div>
+            <h3>DEEP SPACE OBSERVATORY</h3>
+            <p>Spectroscopic data, gravitational wave detection logs (LIGO/VIRGO), and synthetic event horizon imaging.</p>
+            <span class="card-btn">Open Observatory Page &rarr;</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <!-- LOGO ESATTO COME RICHESTO IN HTML -->
+        <a href="index.html" class="logo-container hover-target">
+          <img src="/Users/martinasacchetto/Desktop/ergosphere/LOGO/LOGO.png" alt="Ergosphere" class="logo-img">
+        </a>
+        <p>Advanced Relativistic Astrophysics Observatory & Deep Space Spacetime Atlas.</p>
+      </div>
+
+      <div class="footer-links">
+        <div class="link-col">
+          <h4>NAVIGATION</h4>
+          <a href="index.html">Home</a>
+          <a href="singularities.html">Singularities Atlas</a>
+          <a href="physics.html">Relativistic Physics</a>
+          <a href="observatory.html">Observatory</a>
+        </div>
+        <div class="link-col">
+          <h4>RESEARCH</h4>
+          <a href="physics.html">Kerr Metric</a>
+          <a href="physics.html">Frame Dragging</a>
+          <a href="observatory.html">Event Horizon Telescope</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© 2026 ERGOSPHERE RESEARCH GROUP. ALL RIGHTS RESERVED.</p>
+      <p>SPACETIME MATRIX: 1420.405 MHz</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

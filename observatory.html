@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DEEP SPACE OBSERVATORY — ERGOSPHERE</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,500;0,700;1,400&family=Space+Grotesk:wght@300;500;700&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="observatory.css" />
+</head>
+<body>
+
+  <!-- Custom HUD Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-follower"></div>
+
+  <!-- Technical HUD Frame -->
+  <div class="hud-frame">
+    <div class="hud-corner top-left"><span class="hud-pulse"></span> OBSERVATORY ARRAY // MODULE-04</div>
+    <div class="hud-corner top-right">ARRAY STATUS: OPTICAL / RADIO / GW LINKED</div>
+    <div class="hud-corner bottom-left">VERY LONG BASELINE INTERFEROMETRY (VLBI)</div>
+    <div class="hud-corner bottom-right">SIGNAL NOISE RATIO: 98.4 dB</div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <a href="index.html" class="logo-container hover-target">
+      <img src="/Users/martinasacchetto/Desktop/ergosphere/LOGO/LOGO.png" alt="Ergosphere" class="logo-img">
+    </a>
+
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link hover-target">Home</a>
+      <a href="singularities.html" class="nav-link hover-target">Singularities Atlas</a>
+      <a href="physics.html" class="nav-link hover-target">Relativistic Physics</a>
+      <a href="observatory.html" class="nav-link active hover-target">Deep Space Observatory</a>
+      <a href="observatory.html" class="btn-hud hover-target">Live Feeds</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO SECTION: Interactive Multi-Spectral Telescope Viewport -->
+    <section class="obs-hero">
+      <div class="obs-hero-container">
+        
+        <!-- Controls Side Panel -->
+        <div class="obs-controls glass-panel">
+          <div class="control-header">
+            <span class="section-tag">[ MULTI-SPECTRAL TELESCOPE ARRAY ]</span>
+            <h2>DEEP SPACE VIEWPORT</h2>
+            <p>Select target compact objects and switch observational electromagnetic frequencies to analyze accretion structures, jets, and thermal radiation.</p>
+          </div>
+
+          <!-- Target Selection -->
+          <div class="control-group">
+            <span class="ctrl-label">OBSERVATIONAL TARGET:</span>
+            <div class="target-selector-buttons">
+              <button class="target-btn active hover-target" data-target="m87">M87* SUPERMASSIVE CORE</button>
+              <button class="target-btn hover-target" data-target="sgra">SAGITTARIUS A* (GALACTIC CENTER)</button>
+              <button class="target-btn hover-target" data-target="crab">CRAB PULSAR NEBULA</button>
+              <button class="target-btn hover-target" data-target="cygnus">CYGNUS X-1 BINARY</button>
+            </div>
+          </div>
+
+          <!-- Wavelength Spectrum Band Selector -->
+          <div class="control-group">
+            <span class="ctrl-label">ELECTROMAGNETIC SPECTRUM BAND:</span>
+            <div class="spectrum-buttons">
+              <button class="spec-btn active hover-target" data-band="infrared">INFRARED (2.2 &mu;m)</button>
+              <button class="spec-btn hover-target" data-band="optical">OPTICAL (550 nm)</button>
+              <button class="spec-btn hover-target" data-band="xray">HARD X-RAY (10 keV)</button>
+              <button class="spec-btn hover-target" data-band="gamma">GAMMA-RAY (100 MeV)</button>
+            </div>
+          </div>
+
+          <!-- Exposure & Zoom Sliders -->
+          <div class="sliders-stack">
+            <div class="ctrl-group">
+              <label>EXPOSURE AMPLIFICATION: <span id="exp-val">1.2x</span></label>
+              <input type="range" id="exp-slider" min="0.5" max="3.0" step="0.1" value="1.2" class="hover-target">
+            </div>
+
+            <div class="ctrl-group">
+              <label>RESOLVING POWER (ZOOM): <span id="zoom-val">100%</span></label>
+              <input type="range" id="zoom-slider" min="50" max="250" step="5" value="100" class="hover-target">
+            </div>
+          </div>
+
+          <!-- Live Telemetry Readout -->
+          <div class="obs-telemetry">
+            <div class="t-row"><span class="lbl">RIGHT ASCENSION (RA):</span><span class="val" id="tele-ra">12h 30m 49.4s</span></div>
+            <div class="t-row"><span class="lbl">DECLINATION (DEC):</span><span class="val" id="tele-dec">+12&deg; 23' 28"</span></div>
+            <div class="t-row"><span class="lbl">FLUX DENSITY:</span><span class="val" id="tele-flux">1.42 Jy</span></div>
+            <div class="t-row"><span class="lbl">REDSHIFT (z):</span><span class="val" id="tele-z">0.00428</span></div>
+          </div>
+
+        </div>
+
+        <!-- Main Telescope Canvas Viewport -->
+        <div class="obs-canvas-viewport">
+          <canvas id="telescope-canvas"></canvas>
+          <div class="viewport-hud-overlay">
+            <div class="reticle"></div>
+            <span class="hud-coords">[ RETICLE LOCK: AUTOMATIC VLBI SYNCHRONIZATION ]</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: SPECTRAL LINE & RELATIVISTIC BROADENING ANALYZER -->
+    <section class="spectrum-analyzer-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">[ SPECTROSCOPY MODULE ]</span>
+          <h2>RELATIVISTIC SPECTRAL LINE BROADENING</h2>
+          <p>Examine doppler-shifted accretion disk emission lines (Fe K-&alpha; at 6.4 keV) affected by extreme frame dragging and gravitational redshift.</p>
+        </div>
+
+        <div class="analyzer-card glass-panel">
+          <div class="analyzer-grid">
+            
+            <!-- Spectral Line Graph Canvas -->
+            <div class="spectrum-graph-box">
+              <canvas id="spectrum-canvas"></canvas>
+              <div class="spectrum-labels">
+                <span>0.5 keV (REDSHIFTED WING)</span>
+                <span>6.4 keV (REST FREQUENCY)</span>
+                <span>8.0 keV (BLUESHIFTED PEAK)</span>
+              </div>
+            </div>
+
+            <!-- Controls & Parameters -->
+            <div class="spectrum-controls">
+              <div class="ctrl-group">
+                <label>ACCRETION DISK INCLINATION (&theta;): <span id="inc-val">45&deg;</span></label>
+                <input type="range" id="inc-slider" min="0" max="85" step="1" value="45" class="hover-target">
+              </div>
+
+              <div class="ctrl-group">
+                <label>BLACK HOLE SPIN PARAMETER (a*): <span id="spin-val">0.95</span></label>
+                <input type="range" id="spin-slider" min="0.0" max="0.99" step="0.01" value="0.95" class="hover-target">
+              </div>
+
+              <!-- Metrics -->
+              <div class="spec-metrics-grid">
+                <div class="s-metric">
+                  <span class="s-lbl">FE K-&alpha; LINE SKETCH:</span>
+                  <span class="s-val" id="spec-skew">Asymmetric Red Wing</span>
+                </div>
+                <div class="s-metric">
+                  <span class="s-lbl">INNERMOST STABLE ORBIT (ISCO):</span>
+                  <span class="s-val" id="spec-isco">1.94 r_g</span>
+                </div>
+                <div class="s-metric">
+                  <span class="s-lbl">DOPPLER BOOST FACTOR:</span>
+                  <span class="s-val" id="spec-doppler">1.84x</span>
+                </div>
+                <div class="s-metric">
+                  <span class="s-lbl">EMISSION FLUX PEAK:</span>
+                  <span class="s-val" id="spec-peak">7.12 keV</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: GRAVITATIONAL WAVE INTERFEROMETER (LIGO / LISA) -->
+    <section class="gw-section">
+      <div class="container">
+        <div class="gw-card glass-panel">
+          
+          <div class="gw-header">
+            <div>
+              <span class="section-tag">[ GRAVITATIONAL WAVE DETECTOR ]</span>
+              <h2>COMPACT BINARY INSPIRAL & CHIRP WAVEFORM</h2>
+            </div>
+            <button class="btn-hud hover-target" id="trigger-chirp-btn">TRIGGER MERGER CHIRP</button>
+          </div>
+
+          <div class="gw-layout">
+            <!-- Orbital Inspiral Simulation Canvas -->
+            <div class="gw-canvas-box">
+              <canvas id="gw-orbit-canvas"></canvas>
+              <span class="canvas-tag">INSPIRALING BINARY SYSTEM (SPACETIME RIPPLES)</span>
+            </div>
+
+            <!-- Strain Waveform h(t) Graph Canvas -->
+            <div class="gw-canvas-box">
+              <canvas id="gw-signal-canvas"></canvas>
+              <span class="canvas-tag">INTERFEROMETER STRAIN AMPLITUDE h(t) [10⁻²¹]</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: OBSERVATION LOG CATALOG TABLE -->
+    <section class="log-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">[ CATALOGUE DEEP FEED ]</span>
+          <h2>ACTIVE TARGET OBSERVATION LOG</h2>
+        </div>
+
+        <div class="table-wrapper glass-panel">
+          <table class="obs-table">
+            <thead>
+              <tr>
+                <th>TARGET DESIGNATION</th>
+                <th>CLASSIFICATION</th>
+                <th>COORDINATES (RA / DEC)</th>
+                <th>DISTANCE</th>
+                <th>PRIMARY SPECTRAL FREQ</th>
+                <th>STATUS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong class="highlight">M87* (Virgo A)</strong></td>
+                <td>Supermassive Black Hole</td>
+                <td>12h 30m 49.4s / +12° 23' 28"</td>
+                <td>53.5 Mly</td>
+                <td>230 GHz (EHT Horizon)</td>
+                <td><span class="status-badge live">LIVE TRACKING</span></td>
+              </tr>
+              <tr>
+                <td><strong class="highlight">Sagittarius A*</strong></td>
+                <td>Galactic Core Singularity</td>
+                <td>17h 45m 40.0s / -29° 00' 28"</td>
+                <td>26.7 kly</td>
+                <td>1.3 mm (Infrared/Radio)</td>
+                <td><span class="status-badge live">LIVE TRACKING</span></td>
+              </tr>
+              <tr>
+                <td><strong class="highlight">Crab Pulsar (PSR B0531+21)</strong></td>
+                <td>Magnetized Neutron Star</td>
+                <td>05h 34m 31.9s / +22° 00' 52"</td>
+                <td>6.5 kly</td>
+                <td>30 Hz Pulsations (Gamma)</td>
+                <td><span class="status-badge standby">STANDBY</span></td>
+              </tr>
+              <tr>
+                <td><strong class="highlight">Cygnus X-1</strong></td>
+                <td>Stellar-Mass BH Binary</td>
+                <td>19h 58m 21.7s / +35° 12' 05"</td>
+                <td>7.2 kly</td>
+                <td>Hard X-Ray (Accretion)</td>
+                <td><span class="status-badge live">LIVE TRACKING</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <!-- LOGO REQUISITO ESATTO -->
+        <a href="index.html" class="logo-container hover-target">
+          <img src="/Users/martinasacchetto/Desktop/ergosphere/LOGO/LOGO.png" alt="Ergosphere" class="logo-img">
+        </a>
+        <p>Advanced Relativistic Astrophysics Observatory & Theoretical Physics Platform.</p>
+      </div>
+
+      <div class="footer-links">
+        <div class="link-col">
+          <h4>NAVIGATION</h4>
+          <a href="index.html">Home</a>
+          <a href="singularities.html">Singularities Atlas</a>
+          <a href="physics.html">Relativistic Physics</a>
+          <a href="observatory.html">Observatory</a>
+        </div>
+        <div class="link-col">
+          <h4>OBSERVATORY FEEDS</h4>
+          <a href="observatory.html">Telescope Viewport</a>
+          <a href="observatory.html">Spectral Broadening</a>
+          <a href="observatory.html">Gravitational Waves</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© 2026 ERGOSPHERE RESEARCH GROUP. ALL RIGHTS RESERVED.</p>
+      <p>OBSERVATORY TELEMETRY // VLBI-LINK 8.4</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="observatory.js"></script>
+</body>
+</html>

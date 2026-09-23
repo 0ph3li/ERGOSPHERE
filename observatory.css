@@ -1,0 +1,316 @@
+/* ==========================================================================
+   DEEP SPACE OBSERVATORY — DEDICATED STYLES
+   ========================================================================== */
+
+/* Hero Section */
+.obs-hero {
+  padding-top: 100px;
+  min-height: 100vh;
+  position: relative;
+}
+
+.obs-hero-container {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 24px;
+  padding: 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.obs-controls {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 10;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ctrl-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.target-selector-buttons, .spectrum-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.target-btn, .spec-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--panel-border);
+  color: var(--text-muted);
+  padding: 9px 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.target-btn.active, .target-btn:hover {
+  border-color: var(--accent-orange);
+  color: #fff;
+  background: rgba(255, 69, 0, 0.12);
+}
+
+.spec-btn.active, .spec-btn:hover {
+  border-color: var(--accent-cyan);
+  color: #fff;
+  background: rgba(0, 210, 255, 0.12);
+}
+
+.sliders-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-top: 1px dashed var(--panel-border);
+  padding-top: 16px;
+}
+
+.obs-telemetry {
+  background: #000;
+  border: 1px solid var(--panel-border);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.t-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 4px;
+}
+
+.t-row .lbl { color: var(--text-muted); }
+.t-row .val { color: var(--accent-cyan); font-weight: 700; }
+
+.obs-canvas-viewport {
+  position: relative;
+  background: #000;
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  overflow: hidden;
+  min-height: 650px;
+}
+
+#telescope-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.viewport-hud-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reticle {
+  width: 220px;
+  height: 220px;
+  border: 1px dashed rgba(0, 210, 255, 0.3);
+  border-radius: 50%;
+  position: relative;
+}
+
+.reticle::before, .reticle::after {
+  content: '';
+  position: absolute;
+  background: rgba(0, 210, 255, 0.4);
+}
+
+.reticle::before { top: 50%; left: -20px; width: 260px; height: 1px; }
+.reticle::after { left: 50%; top: -20px; height: 260px; width: 1px; }
+
+.hud-coords {
+  position: absolute;
+  bottom: 20px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 1.5px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 6px 16px;
+  border: 1px solid var(--panel-border);
+}
+
+/* Spectroscopy Analyzer Section */
+.spectrum-analyzer-section {
+  padding: 100px 0;
+  border-top: 1px solid var(--panel-border);
+}
+
+.analyzer-card {
+  padding: 36px;
+}
+
+.analyzer-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 32px;
+}
+
+.spectrum-graph-box {
+  background: #000;
+  border: 1px solid var(--panel-border);
+  height: 320px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+#spectrum-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.spectrum-labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--panel-border);
+  background: rgba(0,0,0,0.8);
+}
+
+.spectrum-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.spec-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  border-top: 1px dashed var(--panel-border);
+  padding-top: 16px;
+}
+
+.s-metric {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--panel-border);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.s-lbl { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); }
+.s-val { font-family: var(--font-heading); font-size: 1rem; color: var(--accent-orange); }
+
+/* Gravitational Wave Section */
+.gw-section {
+  padding: 100px 0;
+}
+
+.gw-card {
+  padding: 36px;
+}
+
+.gw-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.gw-header h2 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+}
+
+.gw-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.gw-canvas-box {
+  height: 280px;
+  background: #000;
+  border: 1px solid var(--panel-border);
+  position: relative;
+}
+
+.gw-canvas-box canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* Observation Log Section */
+.log-section {
+  padding: 100px 0;
+  border-top: 1px solid var(--panel-border);
+}
+
+.table-wrapper {
+  padding: 24px;
+  overflow-x: auto;
+}
+
+.obs-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.obs-table th {
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--panel-border);
+  padding: 12px 16px;
+  letter-spacing: 1px;
+}
+
+.obs-table td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 2px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.status-badge.live {
+  background: rgba(0, 210, 255, 0.15);
+  color: var(--accent-cyan);
+  border: 1px solid var(--accent-cyan);
+}
+
+.status-badge.standby {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  border: 1px solid var(--panel-border);
+}
+
+@media (max-width: 1100px) {
+  .obs-hero-container, .analyzer-grid, .gw-layout { grid-template-columns: 1fr; }
+  .obs-canvas-viewport { min-height: 450px; }
+}
